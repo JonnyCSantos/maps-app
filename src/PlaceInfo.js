@@ -1,43 +1,47 @@
 import React, { Component } from 'react';
-import chef from './img/chef-icon.png'
-import { Marker, InfoWindow } from "react-google-maps"
-
+import { Marker, InfoWindow } from 'react-google-maps';
+import chef from './img/chef-icon.png';
+import hotel from './img/hotel-icon.png';
+import gas from './img/gas-station.png';
+ 
 class PlaceInfo extends Component {
-    state = {
-      place: this.props.place,
-      placeIcon: ''
+  state = {
+    placeIcon: ''
+  };
+ 
+  componentDidMount() {
+    this.mountIcons();
+  }
+ 
+  mountIcons = () => {
+    const { place } = this.props;
+    if (place.type === 'restaurant') {
+      this.setState({
+        placeIcon: chef
+      });
+    } else if (place.type === 'hotel') {
+      this.setState({
+        placeIcon: hotel
+      });
+    } else {
+      this.setState({
+        placeIcon: gas
+      });
     }
-
-    componentDidMount() {
-      this.mountIcons();
-    }
-
-    mountIcons = () => {
-      if(this.state.place.type === "restaurant"){
-        this.setState({
-          placeIcon: chef
-        })
-        return this.state.placeIcon       
-      } else if (this.state.place.type === "hotel") {
-        // icon = hotel
-        return this.state.placeIcon       
-      } else {
-        // icon = gas
-        return this.state.placeIcon       
-      }
-    }
-
-    render(){
-      return (
-        <Marker
-          title={this.state.place.title}
-          position={this.state.place.location}
-          animation={window.google.maps.Animation.DROP}
-          icon={this.mountIcons}
-        >   
-        </Marker>   
-      )    
+  };
+ 
+  render() {
+    const { place } = this.props; 
+    const { placeIcon } = this.state;
+    return (
+      <Marker
+        title={place.title}
+        position={place.location}
+        animation={window.google.maps.Animation.DROP}
+        icon={placeIcon}
+      />
+    );
   }
 }
-
-export default PlaceInfo
+ 
+export default PlaceInfo;

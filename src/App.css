@@ -1,11 +1,31 @@
-html, body { 
-  height: 100%; margin: 0; padding: 0; 
-}
-
-div#root {
+* {
+  box-sizing: border-box;
+ }
+  
+ html, body {
   height: 100%;
-}
-
-.app { 
-  height: 100%; 
-}
+  margin: 0;
+  padding: 0;
+ }
+  
+ div#root {
+  height: 100%;
+ }
+  
+ .app {
+  height: 100%;
+  display: flex;
+  flex-flow: row wrap;
+ }
+  
+ .map {
+  height: 100%;
+  width: 70%;
+ }
+  
+ .menu-wrapper {
+  width: 30%;
+  height: 100%;
+  margin: 0;
+  padding: 10px;
+ }
