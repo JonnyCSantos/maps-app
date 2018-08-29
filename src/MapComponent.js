@@ -4,7 +4,6 @@ import { compose } from 'recompose';
 import { withScriptjs, withGoogleMap, GoogleMap } from 'react-google-maps';
 import PlaceInfo from './PlaceInfo';
  
-// Esse componente foi refatorado só para usar o que é necessário
 const MapComponent = compose(
   withScriptjs,
   withGoogleMap
@@ -16,7 +15,6 @@ const MapComponent = compose(
       lng: -49.96325
     }}
   >
-    {/* Aqui mapeamos sobre cada lugar que você passou como props para o component MapComponent, criando um PlaceInfo para cada, passando o lugar e uma chave identificadora (nome do lugar) */}
     {props.places.map(place => (
       <PlaceInfo key={place.title} place={place} />
     ))}

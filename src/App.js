@@ -43,7 +43,9 @@ const locations = [
  
 class MapsApp extends React.Component {
   state = {
-    query: ''
+    query: '',
+    //pensei em usar um novo estado pq shoingPlaces traz apenas place.title - me corrija se estiver errado
+    filteredPlaces: locations
   }
 
   updateQuery = (query) => {
@@ -52,17 +54,18 @@ class MapsApp extends React.Component {
   clearQuery = () => {
     this.setState({ query: '' })
   }
-
+  
   render() {
-
+  
     return (
       <div className="app">
         <Menu 
-          places={locations}
-          updateQuery={this.updateQuery}  
+          query={this.state.query}
+          filteredPlaces={this.state.filteredPlaces}
+          updateQuery={this.updateQuery}
         />
         <MapComponent
-          places={locations}
+          places={this.state.filteredPlaces}
           containerElement={
             <main className="map" role="application" tabIndex="0" />
           }

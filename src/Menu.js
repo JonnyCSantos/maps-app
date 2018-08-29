@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
 import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
- 
-function Menu(props) {
-        const { places } = props.places
-        const { query } = props.query
+
+class Menu extends Component {
+
+    render () {
+        let {query, filteredPlaces, updateQuery} = this.props
+        console.log(query)
+        console.log(filteredPlaces)
 
         let showingPlaces
         if (query) {
-            
         const match = new RegExp(escapeRegExp(query), 'i')
-        showingPlaces = places.filter((place) => match.test(place.title))
+            showingPlaces = filteredPlaces.filter((place) => match.test(place.title))
+            // A ideia era fazer algo assim mas isso não afeta diretamente o meu estado em app.js
+            filteredPlaces = filteredPlaces.filter((place) => match.test(place))
         } else {
-            showingPlaces = places
+            showingPlaces = filteredPlaces
         }
 
         showingPlaces.sort(sortBy('title'))
@@ -26,8 +30,8 @@ function Menu(props) {
                     className="search-place"
                     type="text"
                     placeholder="Pesquise ..."
-                    value={props.query}
-                    onChange={(event) => props.updateQuery(event.target.value)}
+                    value={query}
+                    onChange={(event) => updateQuery(event.target.value)}
                     />
                     <ul>
                     {showingPlaces.map((place, i) => (
@@ -38,7 +42,9 @@ function Menu(props) {
                     </ul>
                 </nav>
             </div>
-        );
+        )
+    }
+        
 }
  
 export default Menu;
