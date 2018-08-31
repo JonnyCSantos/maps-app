@@ -1,71 +1,87 @@
 import React from 'react';
+import escapeRegExp from 'escape-string-regexp';
+import sortBy from 'sort-by';
+import Places from './Places'; 
 import './App.css';
+import * as FoursquareAPI from './FoursquareAPI'
 import MapComponent from './MapComponent';
 import Menu from './Menu';
- 
-const locations = [
-  {
-    title: "McDonald's",
-    location: { lat: -22.192114, lng: -49.960094 },
-    type: 'restaurant'
-  },
-  {
-    title: 'Old Dog Dogueria',
-    location: { lat: -22.193228, lng: -49.961687 },
-    type: 'restaurant'
-  },
-  {
-    title: 'Alvorada Churrascaria',
-    location: { lat: -22.190681, lng: -49.96325 },
-    type: 'restaurant'
-  },
-  {
-    title: 'Hotel Aquarius de Marília',
-    location: { lat: -22.187372, lng: -49.961643 },
-    type: 'hotel'
-  },
-  {
-    title: 'Travel Inn Marília',
-    location: { lat: -22.183034, lng: -49.963731 },
-    type: 'hotel'
-  },
-  {
-    title: 'Auto Posto Alvorada de Marília Ltda',
-    location: { lat: -22.19172, lng: -49.959906 },
-    type: 'gas'
-  },
-  {
-    title: 'Posto Aquarius - GNV',
-    location: { lat: -22.187565, lng: -49.967719 },
-    type: 'gas'
-  }
-];
- 
+
+const testeVenueId = '52795a7a498ecc6c443e533b'
+
 class MapsApp extends React.Component {
   state = {
+    testeVenueId: '',
     query: '',
-    //pensei em usar um novo estado pq shoingPlaces traz apenas place.title - me corrija se estiver errado
-    filteredPlaces: locations
-  }
+    locations: Places,
+    showingPlaces: Places,
+    placeToShow: '',
+    isOpen: true
+  };
 
-  updateQuery = (query) => {
-    this.setState({ query: query.trim() })
+  componentDidMount() {    
+    FoursquareAPI.getDetails(testeVenueId)
+      .then(res=> {
+        this.setState({ testeVenueId: res.response.name });
+      });
+      console.log(this.state.testeVenueId)
   }
+ 
+  updateQuery = query => {
+    const { locations } = this.state;
+    let showingPlaces = [];
+ 
+    this.setState({ query: query.trim() });
+ 
+    if (query) {
+      const match = new RegExp(escapeRegExp(query), 'i');
+      showingPlaces = locations.filter(place => match.test(place.title));
+    } else {
+      showingPlaces = locations;
+    }
+ 
+    showingPlaces.sort(sortBy('title'));
+
+    this.setState({ showingPlaces });
+  };
+  
   clearQuery = () => {
-    this.setState({ query: '' })
-  }
-  
+    this.setState({ query: '' });
+    this.setState({ showingPlaces: this.state.locations})   
+  };
+
+  selectPlace = placeToShow => {
+    this.setState({
+      placeToShow,
+      isOpen: true
+    });
+  };
+
+  closeInfoWindow = () => {
+    this.setState({
+      placeToShow: '',
+      isOpen: false
+    });
+  };
+
   render() {
-  
+    const { query, showingPlaces, placeToShow, isOpen } = this.state;
     return (
       <div className="app">
-        <Menu 
-          query={this.state.query}
-          filteredPlaces={this.state.filteredPlaces}
+        <Menu
+          query={query}
           updateQuery={this.updateQuery}
+          clearQuery={this.clearQuery}
+          showingPlaces={showingPlaces}
+          allPlaces={this.state.locations}
+          selectPlace={this.selectPlace}
         />
         <MapComponent
-          places={this.state.filteredPlaces}
+          places={showingPlaces}
+          placeTitle={placeToShow}
+          isOpen={isOpen}
+          selectPlace={this.selectPlace}
+          closeInfoWindow={this.closeInfoWindow}
           containerElement={
             <main className="map" role="application" tabIndex="0" />
           }

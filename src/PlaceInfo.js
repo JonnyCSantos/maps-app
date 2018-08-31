@@ -31,7 +31,7 @@ class PlaceInfo extends Component {
   };
  
   render() {
-    const { place } = this.props; 
+    const { place, selectPlace, closeInfoWindow, isOpen, placeTitle} = this.props; 
     const { placeIcon } = this.state;
     return (
       <Marker
@@ -39,7 +39,15 @@ class PlaceInfo extends Component {
         position={place.location}
         animation={window.google.maps.Animation.DROP}
         icon={placeIcon}
-      />
+        onClick={() => selectPlace(place.title)}
+      >
+        {
+          (place.title === placeTitle && isOpen) &&
+          <InfoWindow key={placeTitle} onCloseClick={() => closeInfoWindow()}>
+            <p>{place.title}</p>
+          </InfoWindow>
+        }
+      </Marker>
     );
   }
 }
