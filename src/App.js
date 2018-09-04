@@ -7,11 +7,10 @@ import * as FoursquareAPI from './FoursquareAPI'
 import MapComponent from './MapComponent';
 import Menu from './Menu';
 
-const testeVenueId = '52795a7a498ecc6c443e533b'
-
 class MapsApp extends React.Component {
   state = {
-    testeVenueId: '',
+    photosID: [],
+    venueAddress: [],
     query: '',
     locations: Places,
     showingPlaces: Places,
@@ -20,11 +19,26 @@ class MapsApp extends React.Component {
   };
 
   componentDidMount() {    
-    FoursquareAPI.getDetails(testeVenueId)
+    const placeWithNewAtributes = this.state.showingPlaces.map(place => {
+      FoursquareAPI.getDetails(place.id)
       .then(res=> {
-        this.setState({ testeVenueId: res.response.name });
+        if(place.id === res.id) {
+          console.log(res.location.address)
+          console.log(res.bestPhoto.id)
+          // place.address = res.location.address
+          // place.photoId = res.bestPhoto.id
+        }
+        return place
       });
-      console.log(this.state.testeVenueId)
+    })
+    console.log(placeWithNewAtributes)
+    // this.setState({
+    //   showingPlaces: placeWithNewAtributes
+    // })
+    // FoursquareAPI.getPhoto(testePhoto)  
+    // .then(res=> {
+    //   console.log(res)
+    // });
   }
  
   updateQuery = query => {
@@ -79,6 +93,7 @@ class MapsApp extends React.Component {
         <MapComponent
           places={showingPlaces}
           placeTitle={placeToShow}
+          venueAddress={this.state.venueAddress}
           isOpen={isOpen}
           selectPlace={this.selectPlace}
           closeInfoWindow={this.closeInfoWindow}

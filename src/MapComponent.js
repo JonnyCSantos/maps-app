@@ -21,6 +21,7 @@ const MapComponent = compose(
         place={place} 
         selectPlace={props.selectPlace}
         placeTitle={props.placeTitle}
+        venueAddress={props.venueAddress}
         isOpen={props.isOpen}
         closeInfoWindow={props.closeInfoWindow}
         />

@@ -31,7 +31,7 @@ class PlaceInfo extends Component {
   };
  
   render() {
-    const { place, selectPlace, closeInfoWindow, isOpen, placeTitle} = this.props; 
+    const { place, selectPlace, closeInfoWindow, isOpen, placeTitle, venueAddress} = this.props; 
     const { placeIcon } = this.state;
     return (
       <Marker
@@ -44,7 +44,11 @@ class PlaceInfo extends Component {
         {
           (place.title === placeTitle && isOpen) &&
           <InfoWindow key={placeTitle} onCloseClick={() => closeInfoWindow()}>
-            <p>{place.title}</p>
+            <div>
+              <p>{place.title}</p>
+              <p>{venueAddress}</p>
+              <p><span>Detalhes providos de</span> FoursquareAPI</p>
+            </div>
           </InfoWindow>
         }
       </Marker>

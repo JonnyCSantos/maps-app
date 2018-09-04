@@ -1,15 +1,21 @@
-const api = 'https://api.foursquare.com/v2/venues/'
-const clientId = 'QRSMSATOPDJSIZDJFFCAHH330IROR4TZVJOFENOKBH1I3HA1'
-const clientSecret = 'GQJJOGMCDN4LVG0FF10P52RXB2L0IP13JNZ53V3DZ53TJRRX'
+const api = 'https://api.foursquare.com/v2';
+const clientId = 'H5MQK4VAXXIWKL15T3TKR1ALTFJIYLNCQXZ5ED1GKLZPU2DE';
+//const clientId = 'QRSMSATOPDJSIZDJFFCAHH330IROR4TZVJOFENOKBH1I3HA1';
+//const clientId = 'MDHGVCDLILI3Z2NTI433IJ0WUB3XZ1RL0OSADVQDOBFH3NOH';
+const clientSecret = 'HVRXIKKLIXMQR5ZW4GKAL35XR5UKPIHG45CBT2FAISC0RVXU';
+//const clientSecret = 'GQJJOGMCDN4LVG0FF10P52RXB2L0IP13JNZ53V3DZ53TJRRX';
+//const clientSecret = 'A0CQBYLYCZGCFFFUCLNLPE1AIAQILSD4HNT4XPWWEVQEL5L1';
 
-// https://api.foursquare.com/v2/venues/51fc382d498e6f7538dd7f79?client_id=QRSMSATOPDJSIZDJFFCAHH330IROR4TZVJOFENOKBH1I3HA1&client_secret=GQJJOGMCDN4LVG0FF10P52RXB2L0IP13JNZ53V3DZ53TJRRX&v=20180831
+export const getDetails = (venueId) =>
+fetch(`${api}/venues/${venueId}?client_id=${clientId}&client_secret=${clientSecret}&v=20180831`)
+.then(res => res.json())
+.then(data => data.response.venue
+)
+.catch(err => console.log('Couldn\'t retrieve venue details with ', err))
 
-export const getDetails = (venueId) => {
-    fetch(`${api}${venueId}?client_id=${clientId}&client_secret=${clientSecret}&v=20180831`)
-    .then(function(res) {
-        return res.json()
-    })
-    .catch(function(err) {
-        console.log('Couldn\'t retrieve venue details with ', err)
-    });
-}
+export const getPhoto = (photoId) =>
+fetch(`${api}/photos/${photoId}?client_id=${clientId}&client_secret=${clientSecret}&v=20180831`)
+.then(res => res.json())
+.then(data => data.response.photo
+)
+.catch(err => console.log('Couldn\'t retrieve venue details with ', err))
