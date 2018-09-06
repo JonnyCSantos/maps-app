@@ -4,7 +4,7 @@ Aplicativo criado para o curso Nanodegree Front-End Avançado da Udacity. Este �
 
 A proposta do projeto é criar um app que mostre alguns lugares no mapa e traz algumas informações adicionais deles, além disso deve ser possível fazer uma busca pelos lugares cadastrados, e claro, pensar em usabilidade e responsividade para que o app funcione em qualquer dispositivo.
 
-## Installation
+## Instalação
 
 1. Clone este repositório
 2. Navegue até a pasta no terminal 
@@ -24,3 +24,4 @@ Jonathan Castro dos Santos
 ### Proposta de:
 
 Nanodegree Udacity Front-End Avançado
+Acesso em: https://br.udacity.com/course/front-end-web-developer-nanodegree--nd001-br-advanced
