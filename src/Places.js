@@ -18,12 +18,6 @@ const Places = [
       type: 'restaurant'
     },
     {
-      id: '4cc1f7339141370490dab055',
-      title: 'Hotel Aquarius de Marília',
-      location: { lat: -22.187372, lng: -49.961643 },
-      type: 'hotel'
-    },
-    {
       id: '531b2bff11d2d9a541f5eca7',
       title: 'Travel Inn Marília',
       location: { lat: -22.183034, lng: -49.963731 },

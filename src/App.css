@@ -28,4 +28,120 @@
   height: 100%;
   margin: 0;
   padding: 10px;
+  background-color: #484848;
  }
+
+ .menu-wrapper h1 {
+  color: #fff;
+}
+
+nav.menu label {
+  display: block;
+  color: #fff;
+}
+
+nav.menu ul {
+  margin: 0;
+  padding: 0;
+}
+
+nav.menu ul li {
+  list-style: none;
+  width: 100%;
+  background-color: #fff;
+  padding: 10px;
+  border-bottom: 1px solid #d2d2d2;
+  cursor: pointer;
+}
+
+nav.menu ul li:hover {
+  background-color: #dcdcdc;
+}
+
+input.search-place {
+  margin: 10px 0;
+  width: 100%;
+  height: 40px;
+  border: 1px solid #969696;
+  border-radius: 5px;
+  padding: 0 10px;
+}
+
+ p.title {
+  font-size: 1.3em;
+  font-weight: 500;
+  color: #3e56d4;
+}
+
+.border-det {
+  border: 1px solid #c3c3c3;
+  border-radius: 5px;
+  padding: 5px;
+  background-color: #f1f1f1;
+}
+
+p.credits span {
+  font-size: .8em;
+  color: #000;
+}
+
+p.credits {
+  color: #133fc3;
+}
+
+.showing-contacts {
+  text-align: center;
+}
+
+.showing-contacts span {
+  display: block;
+  text-align: center;
+  margin: 20px 0 10px 0;
+  color: #fff;
+}
+
+.showing-contacts button {
+  border: none;
+  padding: 10px 30px;
+  cursor: pointer;
+}
+
+.showing-contacts button:hover {
+  background-color: #28839e;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .menu-wrapper h1 {
+    font-size: 1.3em;
+}
+
+.map {
+  width: 60%;
+  height: 500px;
+}
+
+.menu-wrapper {
+  width: 40%;
+}
+
+
+}
+
+@media (max-width: 500px) {
+  .menu-wrapper h1 {
+    font-size: 1.8em;
+    text-align: center;
+}
+
+.map {
+  width: 100%;
+}
+
+.menu-wrapper {
+  width: 100%;
+  height: initial;
+}
+
+
+}

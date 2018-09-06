@@ -3,14 +3,30 @@ import { Marker, InfoWindow } from 'react-google-maps';
 import chef from './img/chef-icon.png';
 import hotel from './img/hotel-icon.png';
 import gas from './img/gas-station.png';
+import * as  FoursquareAPI from './FoursquareAPI';
  
 class PlaceInfo extends Component {
   state = {
-    placeIcon: ''
+    placeIcon: '',
+    placeDetails: {
+      address: '',
+      cep: ''
+    }
   };
  
   componentDidMount() {
     this.mountIcons();
+
+    FoursquareAPI.getDetails(this.props.place.id).then(res =>
+      {console.log(res)      
+      this.setState({
+        placeDetails: {
+          address: res.location.address,
+          cep: res.location.postalCode
+        }
+      })
+    }
+    );
   }
  
   mountIcons = () => {
@@ -31,7 +47,7 @@ class PlaceInfo extends Component {
   };
  
   render() {
-    const { place, selectPlace, closeInfoWindow, isOpen, placeTitle, venueAddress} = this.props; 
+    const { place, selectPlace, closeInfoWindow, isOpen, placeTitle} = this.props; 
     const { placeIcon } = this.state;
     return (
       <Marker
@@ -45,9 +61,12 @@ class PlaceInfo extends Component {
           (place.title === placeTitle && isOpen) &&
           <InfoWindow key={placeTitle} onCloseClick={() => closeInfoWindow()}>
             <div>
-              <p>{place.title}</p>
-              <p>{venueAddress}</p>
-              <p><span>Detalhes providos de</span> FoursquareAPI</p>
+              <p className="title">{place.title}</p>
+              <div className="border-det">
+                <p className="address">Endereço: <br/>{this.state.placeDetails.address}</p>
+                <p className="cep">CEP: <br/>{this.state.placeDetails.cep}</p>
+              </div>
+              <p className="credits"><span>Detalhes de</span> FoursquareAPI</p>
             </div>
           </InfoWindow>
         }

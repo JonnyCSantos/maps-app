@@ -7,7 +7,7 @@ function Menu (props) {
         <div className="menu-wrapper">
           <h1>Featured Marilia's places</h1>
          <nav className="menu">
-            <label>Encontre um lugar:</label>
+            <label>Find a place:</label>
             <input
               className="search-place"
               type="text"
