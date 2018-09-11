@@ -3,6 +3,9 @@ import { Marker, InfoWindow } from 'react-google-maps';
 import chef from './img/chef-icon.png';
 import hotel from './img/hotel-icon.png';
 import gas from './img/gas-station.png';
+import chefChecked from './img/chef-icon-clicked.png';
+import hotelChecked from './img/gas-station-cliked.png';
+import gasChecked from './img/hotel-icon-cliked.png';
 import * as  FoursquareAPI from './FoursquareAPI';
  
 class PlaceInfo extends Component {
@@ -13,7 +16,7 @@ class PlaceInfo extends Component {
       cep: ''
     }
   };
- 
+
   componentDidMount() {
     this.mountIcons();
 
@@ -28,7 +31,7 @@ class PlaceInfo extends Component {
     }
     );
   }
- 
+
   mountIcons = () => {
     const { place } = this.props;
     if (place.type === 'restaurant') {
@@ -45,9 +48,28 @@ class PlaceInfo extends Component {
       });
     }
   };
+
+  callSelectPlace = (placeTitle) => {
+    const {place, selectPlace} = this.props
+    selectPlace(placeTitle)
+
+    if (place.type === 'restaurant') {
+      this.setState({
+        placeIcon: chefChecked
+      });
+    } else if (place.type === 'hotel') {
+      this.setState({
+        placeIcon: hotelChecked
+      });
+    } else {
+      this.setState({
+        placeIcon: gasChecked
+      });
+    }
+  }
  
   render() {
-    const { place, selectPlace, closeInfoWindow, isOpen, placeTitle} = this.props; 
+    const { place, closeInfoWindow, isOpen, placeTitle} = this.props; 
     const { placeIcon } = this.state;
     return (
       <Marker
@@ -55,7 +77,10 @@ class PlaceInfo extends Component {
         position={place.location}
         animation={window.google.maps.Animation.DROP}
         icon={placeIcon}
-        onClick={() => selectPlace(place.title)}
+        onClick={() => {
+          this.callSelectPlace(place.title)
+        }
+        }
       >
         {
           (place.title === placeTitle && isOpen) &&
@@ -74,5 +99,5 @@ class PlaceInfo extends Component {
     );
   }
 }
- 
+
 export default PlaceInfo;

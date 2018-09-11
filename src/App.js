@@ -14,9 +14,15 @@ class MapsApp extends React.Component {
     locations: Places,
     showingPlaces: Places,
     placeToShow: '',
-    isOpen: true
+    isOpen: false,
+    mapError: 'false'
   };
 
+  componentDidMount() {
+    window.gm_authFailure = () => {
+      this.setState({ mapError: true })
+    };
+  }
 
   updateQuery = query => {
     const { locations } = this.state;
@@ -41,13 +47,13 @@ class MapsApp extends React.Component {
     this.setState({ showingPlaces: this.state.locations})   
   };
 
-  selectPlace = placeToShow => {
+  selectPlace = (placeToShow) => {
     this.setState({
       placeToShow,
       isOpen: true
     });
   };
-
+  
   closeInfoWindow = () => {
     this.setState({
       placeToShow: '',
