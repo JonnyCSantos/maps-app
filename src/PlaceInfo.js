@@ -8,12 +8,15 @@ class PlaceInfo extends Component {
     placeIcon: '',
     placeDetails: {
       address: '',
-      cep: ''
-    }
+      cep: '',
+    },
+    error: false,
+    errorDet: ''
   };
 
   componentDidMount() {
-    FoursquareAPI.getDetails(this.props.place.id).then(res =>
+    FoursquareAPI.getDetails(this.props.place.id)
+    .then(res =>
       {console.log(res)      
       this.setState({
         placeDetails: {
@@ -22,7 +25,12 @@ class PlaceInfo extends Component {
         }
       })
     }
-    );
+    ).catch(err => {
+      this.setState({ 
+          error: true,
+          errorDet: `${err}`
+       })
+    });
   }
 
   callSelectPlace = (placeTitle) => {
@@ -53,14 +61,19 @@ class PlaceInfo extends Component {
         {
           (place.title === placeTitle && isOpen) &&
           <InfoWindow key={placeTitle} onCloseClick={() => closeInfoWindow()}>
-            <div>
-              <p className="title">{place.title}</p>
-              <div className="border-det">
-                <p className="address">Endereço: <br/>{this.state.placeDetails.address}</p>
-                <p className="cep">CEP: <br/>{this.state.placeDetails.cep}</p>
-              </div>
-              <p className="credits"><span>Detalhes de</span> FoursquareAPI</p>
-            </div>
+            { this.state.error 
+              ? <div>
+                  <p className="error">Desculpe, não foi possível carregar detalhes do lugar.<br/>{this.state.errorDet}</p>
+                </div>
+              : <div>
+                  <p className="title">{place.title}</p>
+                  <div className="border-det">
+                    <p className="address">Endereço: <br/>{this.state.placeDetails.address}</p>
+                    <p className="cep">CEP: <br/>{this.state.placeDetails.cep}</p>
+                  </div>
+                  <p className="credits"><span>Detalhes de</span> FoursquareAPI</p>
+                </div>
+            }
           </InfoWindow>
         }
       </Marker>

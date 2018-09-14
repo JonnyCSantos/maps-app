@@ -15,4 +15,8 @@ fetch(`${api}/venues/${venueId}?client_id=${clientId}&client_secret=${clientSecr
 .then(res => res.json())
 .then(data => data.response.venue
 )
-.catch(err => console.log('Couldn\'t retrieve venue details with ', err))
+.catch(err => {
+    console.log('Couldn\'t retrieve venue details with ', err)
+    return err
+    }
+)

@@ -111,6 +111,11 @@ p.credits {
   color: #fff;
 }
 
+p.error {
+  color: red;
+  font-weight: 500;
+}
+
 @media (max-width: 768px) {
   .menu-wrapper h1 {
     font-size: 1.3em;
