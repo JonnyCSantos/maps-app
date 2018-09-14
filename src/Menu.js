@@ -14,13 +14,17 @@ function Menu (props) {
               placeholder="Pesquise ..."
               value={query}
               onChange={event => updateQuery(event.target.value)}
+              tabIndex="1"
             />
-            <ul>
-              {showingPlaces.map((place, i) => (
-                <li className="item" key={i} onClick={() => selectPlace(place.title)}>
+            <ul tabIndex="2">
+              {showingPlaces.map((place, i) => {
+                let counter = 3
+                return <li className="item" tabIndex={counter} key={i} onClick={() => selectPlace(place.title)}>
                   {place.title}
                 </li>
-              ))}
+                counter++
+                }
+              )}
             </ul>
             {showingPlaces.length !== allPlaces.length && (
                 <div className='showing-contacts'>

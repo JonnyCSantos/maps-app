@@ -10,7 +10,9 @@ A proposta do projeto é criar um app que mostre alguns lugares no mapa e traz a
 2. Navegue até a pasta no terminal 
 3. Instale as dependências com "npm install"
 4. Para emular o app basta digitar "npm start" no terminal
-5. Uma janela abrirá em seu navegador na porta '3000'
+5. Para criar uma construção otimizada em produção, digite "npm run build"
+6. Navegue até a pasta build e digite "npm start"
+7. Uma janela abrirá em seu navegador na porta '3000'
 
 ### Recursos Utilizados
 

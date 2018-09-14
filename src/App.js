@@ -3,7 +3,6 @@ import escapeRegExp from 'escape-string-regexp';
 import sortBy from 'sort-by';
 import Places from './Places'; 
 import './App.css';
-import * as FoursquareAPI from './FoursquareAPI'
 import MapComponent from './MapComponent';
 import Menu from './Menu';
 
@@ -14,13 +13,12 @@ class MapsApp extends React.Component {
     locations: Places,
     showingPlaces: Places,
     placeToShow: '',
-    isOpen: false,
-    mapError: 'false'
+    isOpen: false
   };
 
   componentDidMount() {
     window.gm_authFailure = () => {
-      this.setState({ mapError: true })
+      alert('Google Maps error');
     };
   }
 
@@ -73,7 +71,7 @@ class MapsApp extends React.Component {
           allPlaces={this.state.locations}
           selectPlace={this.selectPlace}
         />
-        <MapComponent
+        <MapComponent role="application"
           places={showingPlaces}
           placeTitle={placeToShow}
           isOpen={isOpen}
